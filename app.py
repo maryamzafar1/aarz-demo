@@ -125,7 +125,7 @@ def json_to_text(data):
      return {
         "speech": text_data,
         "displayText": text_data,
-        "data": {message},
+        "data": {},
         "contextOut": [],
         "source": "apiai-onlinestore-shipping"
     }
