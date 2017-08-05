@@ -36,12 +36,12 @@ def processRequest(req):
 
     baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s=city_names
     print("city:",city_names)
-    print("url is:",baseurl)
+    #print("url is:",baseurl)
     result = urllib.request.urlopen(baseurl).read()
     data = json.loads(result)
-    print('data:', data)
+    #print('data:', data)
     res2=json_to_text(data)
-    print('res2:',res2)
+    #print('res2:',res2)
     return res2
 
 def processIntentName(req):
