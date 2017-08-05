@@ -35,10 +35,13 @@ def processRequest(req):
     city_names=processlocation(req)
     property_type=processPropertyType(req)
     maximum_value=processMaximum(req)
+    unit_property=processUnit(req)
+    area_property=processArea(req)
+
     #baseurl = "https://aarz.pk/bot/index.php?city_name="+city_names+"&sector_name="+sector_names+"&minPrice="+maximum_value+"&type="+property_type+"&LatestProperties="+latest+"&UnitArea="+area_property+"&Unit="+unit_property+"&school="+school+"&airport="+airport+"&transport="+transport+"&security="+security+"&shopping_mall="+malls+"&fuel="+fuel
     #baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&price_min="+maximum_value+"&price_max=0estate_agent=&purpose=Sell&property_type="+property_type
 
-    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&type="+property_type+"&price_max="+maximum_value
+    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&Unit="+unit_property+"&min_r="+area_property+"&max_r=0&price_max="+maximum_value
     #print("city:",city_names)
     print("url is:",baseurl)
     result = urllib.request.urlopen(baseurl).read()
@@ -70,7 +73,7 @@ def processlocation(req):
 def processMaximum(req):
     result = req.get("result")
     parameters = result.get("parameters")
-    maximum = parameters.get("PriceRange")
+    maximum = parameters.get("max_price")
     return maximum
 
 def processMinimum(req):
@@ -85,6 +88,17 @@ def processPropertyType(req):
     propertyType = parameters.get("PropertyType")
     return propertyType
 
+def processUnit(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    unit = parameters.get("Unit")
+    return unit
+
+def processArea(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    area = parameters.get("area_max")
+    return area
 
 def processProjectName(req):
     result = req.get("result")
