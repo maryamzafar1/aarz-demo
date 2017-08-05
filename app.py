@@ -35,19 +35,16 @@ def processRequest(req):
     city_names=processlocation(req)
     property_type=processPropertyType(req)
     maximum_value=processMaximum(req)
-    unit_property=processUnit(req)
-    area_property=processArea(req)
-
     #baseurl = "https://aarz.pk/bot/index.php?city_name="+city_names+"&sector_name="+sector_names+"&minPrice="+maximum_value+"&type="+property_type+"&LatestProperties="+latest+"&UnitArea="+area_property+"&Unit="+unit_property+"&school="+school+"&airport="+airport+"&transport="+transport+"&security="+security+"&shopping_mall="+malls+"&fuel="+fuel
     #baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&price_min="+maximum_value+"&price_max=0estate_agent=&purpose=Sell&property_type="+property_type
 
-    baseurl=https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&price_min="+maximum_value+"&price_max=0&land_area="+unit_property+"&min_r=0&max_r="+area_property
+    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&type="+property_type+"&price_max="+maximum_value
     #print("city:",city_names)
     print("url is:",baseurl)
     result = urllib.request.urlopen(baseurl).read()
     #print('result of url:', result)
     data = json.loads(result)
-    print('data:', data)
+    #print('data:', data)
     res2=json_to_text(data)
     print('res2:',res2)
     return res2
@@ -64,8 +61,8 @@ def processlocation(req):
     parameters = result.get("parameters")
     cityNames = parameters.get("location")
     city = cityNames.get("city")
-    print("city data:", city)
-    print("city:", city)
+    #print("city data:", city)
+    #print("city:", city)
 
     return city
 
@@ -88,17 +85,6 @@ def processPropertyType(req):
     propertyType = parameters.get("PropertyType")
     return propertyType
 
-def processUnit(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    unit = parameters.get("Unit")
-    return unit
-
-def processArea(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    area = parameters.get("area_max")
-    return area
 
 def processProjectName(req):
     result = req.get("result")
@@ -134,8 +120,8 @@ def json_to_text(data):
         text_data_parts ="Here is record " + str(i+1) +":"+ row_title[i]+" in city "+row_city[i] + " price is "+ str(row_price[i])+ ". For Info about this contact at number "+str(row_number[i]) + "."
         text_data = text_data + text_data_parts	
         i+=1
-     print('speech Data',speech_data)
-     print('Text Data',text_data)
+     #print('speech Data',speech_data)
+     #print('Text Data',text_data)
      return {
         "speech": text_data,
         "displayText": text_data,
