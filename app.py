@@ -34,13 +34,12 @@ def processRequest(req):
     intent_name=processIntentName(req)
     city_names=processlocation(req)
 
-    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names
-    #print("city:",city_names)
+    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s=city_names
+    print("city:",city_names)
     print("url is:",baseurl)
     result = urllib.request.urlopen(baseurl).read()
-    #print('result of url:', result)
     data = json.loads(result)
-    #print('data:', data)
+    print('data:', data)
     res2=json_to_text(data)
     print('res2:',res2)
     return res2
@@ -57,8 +56,8 @@ def processlocation(req):
     parameters = result.get("parameters")
     cityNames = parameters.get("location")
     city = cityNames.get("city")
-    #print("city data:", city)
-    #print("city:", city)
+    print("city data:", city)
+    print("city:", city)
 
     return city
 
@@ -84,6 +83,7 @@ def json_to_text(data):
         row_number[i]=data[i]['number']
         row_image[i]=data[i]['image']
         row_city[i]=data[i]['city_name']
+
         speech_data_parts="Here is record " + str(i+1) +":"+ row_title[i]+" in city "+row_city[i] + " price is "+ str(row_price[i]) + "."
         speech_data = speech_data + speech_data_parts
         text_data_parts ="Here is record " + str(i+1) +":"+ row_title[i]+" in city "+row_city[i] + " price is "+ str(row_price[i])+ ". For Info about this contact at number "+str(row_number[i]) + "."
