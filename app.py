@@ -16,11 +16,11 @@ intent_name="string"
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    #print("Request:")
-    #print(json.dumps(req, indent=4))
+    print("Request:")
+    print(json.dumps(req, indent=4))
     res = processRequest(req)
     res = json.dumps(res, indent=4)
-    #print("after json.dumps",res)
+    print("after json.dumps",res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -33,15 +33,20 @@ def processRequest(req):
     global intent_name
     intent_name=processIntentName(req)
     city_names=processlocation(req)
+    property_type=processPropertyType(req)
+    maximum_value=processMaximum(req)
+    #baseurl = "https://aarz.pk/bot/index.php?city_name="+city_names+"&sector_name="+sector_names+"&minPrice="+maximum_value+"&type="+property_type+"&LatestProperties="+latest+"&UnitArea="+area_property+"&Unit="+unit_property+"&school="+school+"&airport="+airport+"&transport="+transport+"&security="+security+"&shopping_mall="+malls+"&fuel="+fuel
+    #baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&price_min="+maximum_value+"&price_max=0estate_agent=&purpose=Sell&property_type="+property_type
 
-    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s=city_names"
-    print("city:",city_names)
-    #print("url is:",baseurl)
+    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&type="+property_type+"&price_max="+maximum_value
+    #print("city:",city_names)
+    print("url is:",baseurl)
     result = urllib.request.urlopen(baseurl).read()
+    #print('result of url:', result)
     data = json.loads(result)
     #print('data:', data)
     res2=json_to_text(data)
-    #print('res2:',res2)
+    print('res2:',res2)
     return res2
 
 def processIntentName(req):
@@ -60,6 +65,33 @@ def processlocation(req):
     #print("city:", city)
 
     return city
+
+
+def processMaximum(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    maximum = parameters.get("max_price")
+    return maximum
+
+def processMinimum(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    min_price = parameters.get("min_price")
+    return min_price
+
+def processPropertyType(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    propertyType = parameters.get("PropertyType")
+    return propertyType
+
+
+def processProjectName(req):
+    result = req.get("result")
+    parameters = result.get("parameters")
+    project_name = parameters.get("ProjectName")
+    return project_name 
+
 
 def json_to_text(data):
      i=0
@@ -83,7 +115,6 @@ def json_to_text(data):
         row_number[i]=data[i]['number']
         row_image[i]=data[i]['image']
         row_city[i]=data[i]['city_name']
-
         speech_data_parts="Here is record " + str(i+1) +":"+ row_title[i]+" in city "+row_city[i] + " price is "+ str(row_price[i]) + "."
         speech_data = speech_data + speech_data_parts
         text_data_parts ="Here is record " + str(i+1) +":"+ row_title[i]+" in city "+row_city[i] + " price is "+ str(row_price[i])+ ". For Info about this contact at number "+str(row_number[i]) + "."
@@ -101,6 +132,6 @@ def json_to_text(data):
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    print("Starting app on port %d" % port)
+    print("Starting app on port %d" % port
 
     app.run(debug=True, port=port, host='0.0.0.0')
