@@ -16,11 +16,11 @@ intent_name="string"
 @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
-    print("Request:")
-    print(json.dumps(req, indent=4))
+    #print("Request:")
+    #print(json.dumps(req, indent=4))
     res = processRequest(req)
     res = json.dumps(res, indent=4)
-    print("after json.dumps",res)
+    #print("after json.dumps",res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -56,8 +56,8 @@ def processlocation(req):
     parameters = result.get("parameters")
     cityNames = parameters.get("location")
     city = cityNames.get("city")
-    print("city data:", city)
-    print("city:", city)
+    #print("city data:", city)
+    #print("city:", city)
 
     return city
 
