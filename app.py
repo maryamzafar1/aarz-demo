@@ -34,7 +34,7 @@ def processRequest(req):
     intent_name=processIntentName(req)
     city_names=processlocation(req)
 
-    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s=city_names
+    baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s=city_names"
     print("city:",city_names)
     #print("url is:",baseurl)
     result = urllib.request.urlopen(baseurl).read()
