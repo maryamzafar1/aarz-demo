@@ -204,7 +204,7 @@ def makeWebhookResult(data):
      return {
         "speech": text_data,
         "displayText": text_data,
-        "data": {"facebook",message},
+        "data": {"facebook": message},
         "contextOut": [],
         "source": "apiai-onlinestore-shipping"
     }
