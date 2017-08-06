@@ -132,11 +132,6 @@ def convertMaximum(maximum_valu):
     except ValueError:
         convertMaximumIfWords(maximum_valu)
 
-#MAIN PROGRAM
-
-inp=input("Enter budget: ")
-convertMaximum(inp)
-
 def makeWebhookResult(data):
      i=0
      length=len(data)
