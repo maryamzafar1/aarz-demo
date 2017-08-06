@@ -26,7 +26,7 @@ def webhook():
     return r
 
 def processRequest(req):
-    if req.get("result").get("action") != "final_budget":
+    if req.get("result").get("action") != "property_search":
         return {}
     global city_names
     global QR
@@ -70,7 +70,7 @@ def processlocation(req):
 def processMaximum(req):
     result = req.get("result")
     parameters = result.get("parameters")
-    maximum = parameters.get("max_price")
+    maximum = parameters.get("PriceRange")
     return maximum
 
 def processMinimum(req):
@@ -132,6 +132,6 @@ def json_to_text(data):
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    print("Starting app on port %d" % port
+    print("Starting app on port %d" % port)
 
     app.run(debug=True, port=port, host='0.0.0.0')
