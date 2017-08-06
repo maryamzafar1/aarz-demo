@@ -71,7 +71,7 @@ def processlocation(req):
 def processMaximum(req):
     result = req.get("result")
     parameters = result.get("parameters")
-    maximum = parameters.get("max_price")
+    maximum = parameters.get("PriceRange")
     return maximum
 
 def processMinimum(req):
