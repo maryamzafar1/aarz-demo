@@ -45,7 +45,8 @@ def processRequest(req):
     #print('result of url:', result)
     data = json.loads(result)
     #print('data:', data)
-    res2=json_to_text(data)
+    #res2=json_to_text(data)
+    res2 = makeWebhookResult(data)
     print('res2:',res2)
     return res2
 
@@ -93,7 +94,7 @@ def processProjectName(req):
     return project_name 
 
 
-def json_to_text(data):
+def makeWebhookResult(data):
      i=0
      length=len(data)
      speech_data = "Here are some properties with your choice. We have total of "+str(length)+" records of your interest in city  "+city+"."
@@ -120,12 +121,90 @@ def json_to_text(data):
         text_data_parts ="Here is record " + str(i+1) +":"+ row_title[i]+" in city "+row_city[i] + " price is "+ str(row_price[i])+ ". For Info about this contact at number "+str(row_number[i]) + "."
         text_data = text_data + text_data_parts	
         i+=1
+     variable1=str(row_number[0])
+     variable2=str(row_number[1])
+     variable3=str(row_number[2])
+     variable4=str(row_number[3]) 
      #print('speech Data',speech_data)
      #print('Text Data',text_data)
+     message={
+                   "attachment":{
+                    "type":"template",
+                       "payload":{
+            "template_type":"generic",
+            "elements":[
+          {
+               "title": row_title[0],
+               "subtitle": row_location[0],
+                "item_url": "https://www.aarz.pk/property-detail/"+row_slug[0],               
+               "image_url":"https://www.aarz.pk/"+row_image[0]  ,
+                "buttons": [{
+                "type":"phone_number",
+              "title":"Call Agent",
+              "payload":"+92"+variable1[1:]
+                },
+                    {
+                "type":"element_share"
+                  
+            }, 
+                   ],
+          }, 
+                   {
+               "title": row_title[1],
+               "subtitle": row_location[1],
+                "item_url": "https://www.aarz.pk/property-detail/"+row_slug[1],               
+               "image_url":"https://www.aarz.pk/"+row_image[1]  ,
+                "buttons": [{
+                "type":"phone_number",
+              "title":"Call Agent",
+              "payload":"+92"+variable2[1:]
+            }, 
+                     {
+                "type":"element_share"
+                    
+                    }, 
+                   ],
+          }, 
+                   {
+               "title": row_title[2],
+               "subtitle": row_location[2],
+                "item_url": "https://www.aarz.pk/property-detail/"+row_slug[2],               
+               "image_url":"https://www.aarz.pk/"+row_image[2]  ,
+                "buttons": [{
+               "type":"phone_number",
+              "title":"Call Agent",
+              "payload":"+92"+variable3[1:]
+            }, 
+                     {
+                "type":"element_share"
+                    
+                    }, 
+                   ],
+          }, 
+                   {
+                "title": row_title[3],
+                "subtitle": row_location[3],
+                 "item_url": "https://www.aarz.pk/property-detail/"+row_slug[3],               
+               "image_url":"https://www.aarz.pk/"+row_image[3]  ,
+                "buttons": [{
+               "type":"phone_number",
+              "title":"Call Agent",
+              "payload":"+92"+variable4[1:]
+            },
+                     {
+                "type":"element_share"
+                    
+                    }, 
+                   ]
+}]
+         }
+       }
+     }
+
      return {
         "speech": text_data,
         "displayText": text_data,
-        "data": {},
+        "data": {message},
         "contextOut": [],
         "source": "apiai-onlinestore-shipping"
     }
