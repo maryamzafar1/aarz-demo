@@ -34,9 +34,11 @@ def processRequest(req):
     intent_name=processIntentName(req)
     city_names=processlocation(req)
     property_type=processPropertyType(req)
-    maximum_value=processMaximum(req)
+    maximum_valu=processMaximum(req)
     max_area=processAreaMax(req)
     unit_property=processUnits(req)
+
+    maximum_value=convertMaximum(maximum_valu)
 
     #baseurl = "https://aarz.pk/bot/index.php?city_name="+city_names+"&sector_name="+sector_names+"&minPrice="+maximum_value+"&type="+property_type+"&LatestProperties="+latest+"&UnitArea="+area_property+"&Unit="+unit_property+"&school="+school+"&airport="+airport+"&transport="+transport+"&security="+security+"&shopping_mall="+malls+"&fuel="+fuel
     #baseurl="https://www.aarz.pk/search/bot?postedBy=searchPage&view=&city_s="+city_names+"&price_min="+maximum_value+"&price_max=0estate_agent=&purpose=Sell&property_type="+property_type
@@ -107,6 +109,33 @@ def processProjectName(req):
     project_name = parameters.get("ProjectName")
     return project_name 
 
+#Price
+def convertMaximumIfWords(req):
+    price, unitt = req.split()
+    price = int(price)
+    if unitt[0] == 'l' or unitt[0] == 'L':
+        price = price * (10 ** 5)
+    elif unitt[0] == 'm' or unitt[0] == 'M':
+        price = price * (10 ** 6)
+    elif unitt[0] == 'c' or unitt[0] == 'C':
+        price = price * (10 ** 7)
+
+    return price
+
+def convertMaximumIfNumber(req):
+    price=int(req)
+    return price
+
+def convertMaximum(maximum_valu):
+    try:
+        convertMaximumIfNumber(maximum_valu)
+    except ValueError:
+        convertMaximumIfWords(maximum_valu)
+
+#MAIN PROGRAM
+
+inp=input("Enter budget: ")
+convertMaximum(inp)
 
 def makeWebhookResult(data):
      i=0
