@@ -120,11 +120,11 @@ def convertMaximumIfWords(req):
     elif unitt[0] == 'c' or unitt[0] == 'C':
         price = price * (10 ** 7)
 
-    return price
+    return str(price)
 
 def convertMaximumIfNumber(req):
     price=int(req)
-    return price
+    return str(price)
 
 def convertMaximum(maximum_valu):
     try:
