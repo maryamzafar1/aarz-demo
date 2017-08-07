@@ -114,7 +114,7 @@ def processProjectName(req):
 def convertMaximumIfWords(req):
     if req[0] == '' or req[0] == ' ':
         return 0
-    else 
+    else:
         price, unitt = req.split()
         price = int(price)
         if unitt[0] == 'l' or unitt[0] == 'L':
