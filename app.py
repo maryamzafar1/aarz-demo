@@ -112,16 +112,19 @@ def processProjectName(req):
 
 #Price
 def convertMaximumIfWords(req):
-    price, unitt = req.split()
-    price = int(price)
-    if unitt[0] == 'l' or unitt[0] == 'L':
-        price = price * (10 ** 5)
-    elif unitt[0] == 'm' or unitt[0] == 'M':
-        price = price * (10 ** 6)
-    elif unitt[0] == 'c' or unitt[0] == 'C':
-        price = price * (10 ** 7)
-    print(price)
-    return str(price)
+    if req[0] == '' or req[0] = ' ':
+        return 0
+    else 
+        price, unitt = req.split()
+        price = int(price)
+        if unitt[0] == 'l' or unitt[0] == 'L':
+            price = price * (10 ** 5)
+        elif unitt[0] == 'm' or unitt[0] == 'M':
+            price = price * (10 ** 6)
+        elif unitt[0] == 'c' or unitt[0] == 'C':
+            price = price * (10 ** 7)
+        print(price)
+        return str(price)
 
 def convertMaximumIfNumber(req):
     price=int(req)
