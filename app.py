@@ -130,9 +130,9 @@ def convertMaximumIfNumber(req):
 
 def convertMaximum(maximum_valu):
     try:
-        convertMaximumIfNumber(maximum_valu)
+        return convertMaximumIfNumber(maximum_valu)
     except ValueError:
-        convertMaximumIfWords(maximum_valu)
+        return convertMaximumIfWords(maximum_valu)
 
 def makeWebhookResult(data):
      i=0
