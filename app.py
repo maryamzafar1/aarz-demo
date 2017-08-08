@@ -153,6 +153,8 @@ def makeWebhookResult(data):
         row_id[i]=data[i]['property_id']
         row_title[i]=data[i]['title']
         row_location[i]=data[i]['address']
+        if row_location[i] is none:
+            row_location[i] = "not specified"
         row_price[i]=data[i]['price']
         row_slug[i]=data[i]['slug']
         row_number[i]=data[i]['number']
@@ -256,5 +258,6 @@ if __name__ == '__main__':
     print("Starting app on port %d" % port)
 
     app.run(debug=True, port=port, host='0.0.0.0')
+
 
 
