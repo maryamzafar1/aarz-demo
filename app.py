@@ -165,6 +165,7 @@ def makeWebhookResult(data):
         text_data_parts ="Here is record " + str(i+1) +":"+ row_title[i]+" in city "+row_city[i] + " price is "+ str(row_price[i])+ ". For Info about this contact at number "+str(row_number[i]) + "."
         text_data = text_data + text_data_parts	
         i+=1
+     print(row_title[0])
      variable1=str(row_number[0])
      variable2=str(row_number[1])
      variable3=str(row_number[2])
@@ -179,8 +180,6 @@ def makeWebhookResult(data):
             "elements":[
           {
                "title": row_title[0],
-               print(row_price[0]),
-               print(str(row_price[0])),
                "subtitle": row_location[0]+"\nPrice: Rs."+str(row_price[0]),
               "item_url": "https://www.aarz.pk/property-detail/"+row_slug[0],               
                "image_url":"https://www.aarz.pk/"+row_image[0]  ,
