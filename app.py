@@ -153,7 +153,7 @@ def makeWebhookResult(data):
         row_id[i]=data[i]['property_id']
         row_title[i]=data[i]['title']
         row_location[i]=data[i]['address']
-        if row_location[i] is none:
+        if row_location[i] == "" 0r row_location[i] == " ":
             row_location[i] = "not specified"
         row_price[i]=data[i]['price']
         row_slug[i]=data[i]['slug']
