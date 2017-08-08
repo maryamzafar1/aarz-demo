@@ -179,6 +179,8 @@ def makeWebhookResult(data):
             "elements":[
           {
                "title": row_title[0],
+               print row_price,
+               print str(row_price),
                "subtitle": row_location[0]+"\nPrice: Rs."+str(row_price[0]),
               "item_url": "https://www.aarz.pk/property-detail/"+row_slug[0],               
                "image_url":"https://www.aarz.pk/"+row_image[0]  ,
@@ -194,7 +196,7 @@ def makeWebhookResult(data):
                    ],
           }, 
                    {
-               "title": row_title[1],
+               "title": row_title[1],             
                "subtitle": row_location[1]+"\nPrice: Rs."+str(row_price[1]),
                 "item_url": "https://www.aarz.pk/property-detail/"+row_slug[1],               
                "image_url":"https://www.aarz.pk/"+row_image[1]  ,
